@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Form\UserCreateType;
 
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'user')]
+    #[Route('/', name: 'users')]
     public function index(): Response
     {
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
@@ -26,18 +28,27 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/create',name:'user-create')]
-    public function create() : response
+    public function create(Request $request) : Response
     {
-
         $user = new User();
-        $user->setFirstname('Pierre');
-        $user->setLastname('Noël');
+        
+        // Display the form
+        $form = $this->createForm(UserCreateType::class,$user);
+                
+        $form->handleRequest($request);
 
-        $this->entityManager()->persist($user);
+        if ($form->isSubmitted() && $form->isValid()) {
+           
+            $user = $form->getData();
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-        $this->entityManager()->flush();
+            return $this->redirectToRoute('users');
+        }
 
-        return $this->redirect('/');
+        return $this->renderForm('user/create.html.twig',['form' => $form]);
     }
 
     #[Route('/user/delete/{user}',name:'user-delete')]
