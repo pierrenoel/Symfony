@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    <div class="container mx-auto py-10">
+        <h2 class="text-2xl pb-5">Ajouter une categorie</h2>
+        <form method="POST" action="/category/create">
+            <input type="text" name="name"
+                   class="w-full p-4"
+                   placeholder="Nom de la catégorie">
+
+            <input type="submit"
+                   class="w-full p-4"
+                   value="envoyer">
+
+        </form>
+    </div>
+
+{% endblock %}

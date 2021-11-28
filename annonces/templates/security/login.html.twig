@@ -12,7 +12,7 @@
                 <a href="{{ path('app_logout') }}">Déconnexion</a>
             </div>
             {% else %}
-                <h1 class="text-2xl pb-5">Connecte-toi!</h1>
+                <h2 class="text-2xl pb-5">Connecte-toi!</h2>
                 <form method="post" class="flex flex-col">
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
