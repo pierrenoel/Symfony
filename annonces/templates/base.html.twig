@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+
+    <div class="bg-gray-900">
+        <div class="container mx-auto text-white py-52">
+            <h1 class="text-4xl">Bienvenue à toi!</h1>
+            <p>Site d'apprentissage de Laravel</p>
+        </div>
+    </div>
+
+    <div class="bg-gray-200 border-b">
+       <div class="container mx-auto py-5">
+           <nav>
+               <a href="/" class="pr-5">Accueil</a>
+               <a href="/connexion">Connexion</a>
+           </nav>
+       </div>
+    </div>
+
+        {% block body %}{% endblock %}
+    </body>
+</html>
